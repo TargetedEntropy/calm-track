@@ -1,0 +1,38 @@
+[
+  {
+    "id": "mce",
+    "name": "MC Eternal",
+    "ip": "calmingstorm.net",
+    "port": 25580
+  },
+  {
+    "id": "gtnh",
+    "name": "GregTech: New Horizons",
+    "ip": "calmingstorm.net",
+    "port": 25567
+  },
+  {
+    "id": "tnp",
+    "name": "TNP Limitless 8",
+    "ip": "calmingstorm.net",
+    "port": 25568
+  },
+  {
+    "id": "aof6",
+    "name": "All of Fabric 6",
+    "ip": "calmingstorm.net",
+    "port": 25566
+  },
+  {
+    "id": "monifactory",
+    "name": "Monifactory",
+    "ip": "calmingstorm.net",
+    "port": 25565
+  },
+  {
+    "id": "cae",
+    "name": "Create: Arcane Engineering",
+    "ip": "cae.calmingstorm.net",
+    "port": 25569
+  }
+]

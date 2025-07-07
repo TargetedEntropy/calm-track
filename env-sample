@@ -1,0 +1,2 @@
+DATABASE_URL=postgresql://username:password@localhost/minecraft_monitor
+# For SQLite, use: DATABASE_URL=sqlite:///./minecraft_monitor.db
