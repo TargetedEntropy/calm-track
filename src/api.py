@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Query, HTTPException, Depends
 from fastapi.responses import HTMLResponse, Response
+from fastapi.templating import Jinja2Templates
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
@@ -16,6 +17,7 @@ from models.database import get_db, SessionLocal
 from models.models import Server, PlayerCount
 
 app = FastAPI(title="Minecraft Server Monitor API")
+templates = Jinja2Templates(directory="templates")
 
 def get_server_by_id(server_id: str, db: Session) -> Server:
     """Get server by ID or raise 404"""
@@ -81,80 +83,19 @@ def create_plot(server: Server, player_counts: List[PlayerCount], period: int) -
 
 def generate_html_content(server: Server, server_id: str, period: int, 
                          player_counts: List[PlayerCount], image_base64: str) -> str:
-    """Generate HTML content for the graph page"""
+    """Generate HTML content for the graph page using Jinja2 template"""
     end_date = datetime.utcnow()
     
-    return f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>{server.name} - Player Count</title>
-        <style>
-            body {{
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 20px;
-                background-color: #f5f5f5;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }}
-            .container {{
-                background-color: white;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                max-width: 1200px;
-                width: 100%;
-            }}
-            img {{
-                width: 100%;
-                height: auto;
-                border-radius: 4px;
-            }}
-            .controls {{
-                margin: 20px 0;
-                text-align: center;
-            }}
-            .controls a {{
-                margin: 0 10px;
-                padding: 8px 16px;
-                background-color: #007bff;
-                color: white;
-                text-decoration: none;
-                border-radius: 4px;
-                display: inline-block;
-            }}
-            .controls a:hover {{
-                background-color: #0056b3;
-            }}
-            .info {{
-                text-align: center;
-                color: #666;
-                margin-top: 10px;
-            }}
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1 style="text-align: center; color: #333;">{server.name} - Player Count</h1>
-            <div class="controls">
-                <a href="/graph/{server_id}?period=1">1 Day</a>
-                <a href="/graph/{server_id}?period=7">7 Days</a>
-                <a href="/graph/{server_id}?period=30">30 Days</a>
-                <a href="/graph/{server_id}?period=90">90 Days</a>
-                <a href="/graph/{server_id}?period=365">1 Year</a>
-            </div>
-            <img src="data:image/png;base64,{image_base64}" alt="Player Count Graph">
-            <div class="info">
-                <p>Server: {server.name} ({server.ip}:{server.port})</p>
-                <p>Period: {period} days | Data points: {len(player_counts)}</p>
-                <p>Last updated: {end_date.strftime('%Y-%m-%d %H:%M:%S UTC')}</p>
-            </div>
-        </div>
-    </body>
-    </html>
-    """
+    context = {
+        "server": server,
+        "server_id": server_id,
+        "period": period,
+        "data_points": len(player_counts),
+        "last_updated": end_date.strftime('%Y-%m-%d %H:%M:%S UTC'),
+        "image_base64": image_base64
+    }
+    
+    return templates.get_template("graph.html").render(context)
 
 @app.get("/")
 def read_root():

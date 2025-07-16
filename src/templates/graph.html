@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ server.name }} - Player Count</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            width: 100%;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        .controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .controls a {
+            margin: 0 10px;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .controls a:hover {
+            background-color: #0056b3;
+        }
+        .controls a.active {
+            background-color: #0056b3;
+            font-weight: bold;
+        }
+        .info {
+            text-align: center;
+            color: #666;
+            margin-top: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .server-info {
+            text-align: center;
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ server.name }} - Player Count</h1>
+        <div class="server-info">
+            {{ server.ip }}:{{ server.port }}
+        </div>
+        
+        <div class="controls">
+            <a href="/graph/{{ server_id }}?period=1" 
+               {% if period == 1 %}class="active"{% endif %}>1 Day</a>
+            <a href="/graph/{{ server_id }}?period=7" 
+               {% if period == 7 %}class="active"{% endif %}>7 Days</a>
+            <a href="/graph/{{ server_id }}?period=30" 
+               {% if period == 30 %}class="active"{% endif %}>30 Days</a>
+            <a href="/graph/{{ server_id }}?period=90" 
+               {% if period == 90 %}class="active"{% endif %}>90 Days</a>
+            <a href="/graph/{{ server_id }}?period=365" 
+               {% if period == 365 %}class="active"{% endif %}>1 Year</a>
+        </div>
+        
+        <img src="data:image/png;base64,{{ image_base64 }}" alt="Player Count Graph">
+        
+        <div class="info">
+            <p><strong>Period:</strong> {{ period }} days | <strong>Data points:</strong> {{ data_points }}</p>
+            <p><strong>Last updated:</strong> {{ last_updated }}</p>
+        </div>
+    </div>
+</body>
+</html>
