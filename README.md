@@ -2,6 +2,8 @@
 
 A system to monitor player counts on multiple Minecraft servers and generate graphs.
 
+![image](https://i.imgur.com/7Ni4YsC.png)
+
 ## Setup
 
 1. Install dependencies:
