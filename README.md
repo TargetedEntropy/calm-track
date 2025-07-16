@@ -30,7 +30,25 @@ crontab -e
 */15 * * * * cd /path/to/project && /usr/bin/python3 src/scraper.py >> /var/log/minecraft_scraper.log 2>&1
 ```
 
-5. Run the API server:
+5. Create your servers.json file.
+```
+[
+  {
+    "id": "mce",
+    "name": "MC Eternal",
+    "ip": "calmingstorm.net",
+    "port": 25580
+  },
+  {
+    "id": "gtnh",
+    "name": "GregTech: New Horizons",
+    "ip": "calmingstorm.net",
+    "port": 25567
+  }
+]
+```
+
+6. Run the API server:
 ```bash
 cd src
 python api.py
