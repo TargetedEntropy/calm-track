@@ -31,7 +31,7 @@ crontab -e
 ```
 
 5. Create your servers.json file.
-```
+```json
 [
   {
     "id": "mce",
