@@ -1,7 +1,6 @@
 """
 Pytest configuration file for shared fixtures and test setup.
 """
-
 import sys
 from pathlib import Path
 
@@ -14,7 +13,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
 from src.models.database import Base
 
 
@@ -34,21 +32,43 @@ def db_session(engine):
     transaction = connection.begin()
     Session = sessionmaker(bind=connection)
     session = Session()
-
+    
     yield session
-
+    
     session.close()
     transaction.rollback()
     connection.close()
+
+
+# Alias for compatibility
+@pytest.fixture(scope="function")
+def session(db_session):
+    """Alias for db_session for backward compatibility"""
+    return db_session
 
 
 @pytest.fixture
 def sample_servers():
     """Provide sample server data for testing"""
     return [
-        {"id": "mce", "name": "MC Eternal", "ip": "calmingstorm.net", "port": 25580},
-        {"id": "gtnh", "name": "GregTech: New Horizons", "ip": "calmingstorm.net", "port": 25567},
-        {"id": "tnp", "name": "TNP Limitless 8", "ip": "calmingstorm.net", "port": 25568},
+        {
+            "id": "mce",
+            "name": "MC Eternal",
+            "ip": "calmingstorm.net",
+            "port": 25580
+        },
+        {
+            "id": "gtnh",
+            "name": "GregTech: New Horizons",
+            "ip": "calmingstorm.net",
+            "port": 25567
+        },
+        {
+            "id": "tnp",
+            "name": "TNP Limitless 8",
+            "ip": "calmingstorm.net",
+            "port": 25568
+        }
     ]
 
 
