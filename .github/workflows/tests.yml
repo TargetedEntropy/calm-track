@@ -107,7 +107,7 @@ jobs:
         # Run from root directory since scraper.py expects servers.json there
         python src/scraper.py
         # Check if the lock file mechanism works
-        timeout 5s python scraper.py || exit_code=$?
+        timeout 5s python src/scraper.py || exit_code=$?
         if [ "${exit_code:-0}" -eq 124 ]; then
           echo "Lock mechanism working correctly"
         elif [ "${exit_code:-0}" -eq 1 ]; then
