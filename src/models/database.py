@@ -19,10 +19,8 @@ engine = create_engine(
     pool_pre_ping=True,  # Test connections before use (prevents stale connections)
     pool_recycle=3600,  # Recycle connections after 1 hour
     pool_timeout=30,  # Timeout when getting connection from pool
-    echo=False,  # Set to True for SQL debugging
-    connect_args={
-        "connect_timeout": 60,  # Connection timeout in seconds
-    },
+    echo=False  # Set to True for SQL debugging
+
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
