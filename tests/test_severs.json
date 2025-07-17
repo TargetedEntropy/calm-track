@@ -1,0 +1,14 @@
+[
+    {
+      "id": "test_server",
+      "name": "Test Server",
+      "ip": "localhost",
+      "port": 25565
+    },
+    {
+      "id": "test_server_2",
+      "name": "Test Server 2",
+      "ip": "127.0.0.1",
+      "port": 25566
+    }
+  ]
