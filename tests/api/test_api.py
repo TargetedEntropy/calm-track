@@ -1,5 +1,5 @@
 """
-Final working test suite with proper template mocking that uses actual variables.
+Test api.py
 """
 
 import pytest
@@ -16,7 +16,7 @@ from sqlalchemy.pool import StaticPool
 # Add src to Python path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
 
-# Import your app and models
+# Impor app and models
 from api import app, get_server_by_id, get_player_counts, create_plot, generate_html_content
 from models.database import get_db, Base
 from models.models import Server, PlayerCount, Player
