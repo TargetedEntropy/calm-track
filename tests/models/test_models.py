@@ -32,7 +32,9 @@ class TestServerModel:
 
     def test_create_server(self, session):
         """Test creating a new server"""
-        server = Server(id="test_server", name="Test Server", ip="192.168.1.1", port=25565)
+        server = Server(
+            id="test_server", name="Test Server", ip="192.168.1.1", port=25565
+        )
         session.add(server)
         session.commit()
 
@@ -316,7 +318,9 @@ class TestCascadeBehavior:
         session.commit()
 
         # Player should still exist
-        retrieved_player = session.query(Player).filter_by(username="TestPlayer").first()
+        retrieved_player = (
+            session.query(Player).filter_by(username="TestPlayer").first()
+        )
         assert retrieved_player is not None
 
     def test_delete_player_count_preserves_players(self, session):
@@ -336,6 +340,8 @@ class TestCascadeBehavior:
         session.commit()
 
         # Player should still exist
-        retrieved_player = session.query(Player).filter_by(username="TestPlayer").first()
+        retrieved_player = (
+            session.query(Player).filter_by(username="TestPlayer").first()
+        )
         assert retrieved_player is not None
         assert len(retrieved_player.snapshots) == 0

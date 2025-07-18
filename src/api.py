@@ -69,7 +69,9 @@ def format_x_axis(ax, period: int):
         ax.xaxis.set_major_locator(mdates.DayLocator(interval=7))
 
 
-def create_plot(server: Server, player_counts: List[PlayerCount], period: int) -> BytesIO:
+def create_plot(
+    server: Server, player_counts: List[PlayerCount], period: int
+) -> BytesIO:
     """Create matplotlib plot and return as BytesIO buffer"""
     timestamps = [pc.timestamp for pc in player_counts]
     counts = [pc.player_count for pc in player_counts]
@@ -95,7 +97,11 @@ def create_plot(server: Server, player_counts: List[PlayerCount], period: int) -
 
 
 def generate_html_content(
-    server: Server, server_id: str, period: int, player_counts: List[PlayerCount], image_base64: str
+    server: Server,
+    server_id: str,
+    period: int,
+    player_counts: List[PlayerCount],
+    image_base64: str,
 ) -> str:
     """Generate HTML content for the graph page using Jinja2 template"""
     end_date = datetime.utcnow()
@@ -127,7 +133,9 @@ def get_servers(db: Session = Depends(get_db)):
 @app.get("/graph/{server_id}")
 async def generate_graph(
     server_id: str,
-    period: int = Query(default=7, ge=1, le=365, description="Number of days to display"),
+    period: int = Query(
+        default=7, ge=1, le=365, description="Number of days to display"
+    ),
     db: Session = Depends(get_db),
 ):
     """Generate a line graph of player counts for a specific server"""
@@ -137,14 +145,18 @@ async def generate_graph(
     buffer = create_plot(server, player_counts, period)
     image_base64 = base64.b64encode(buffer.getvalue()).decode()
 
-    html_content = generate_html_content(server, server_id, period, player_counts, image_base64)
+    html_content = generate_html_content(
+        server, server_id, period, player_counts, image_base64
+    )
     return HTMLResponse(content=html_content)
 
 
 @app.get("/graph/{server_id}/image")
 async def get_graph_image(
     server_id: str,
-    period: int = Query(default=7, ge=1, le=365, description="Number of days to display"),
+    period: int = Query(
+        default=7, ge=1, le=365, description="Number of days to display"
+    ),
     db: Session = Depends(get_db),
 ):
     """Get just the graph image as PNG (for embedding in other pages)"""
@@ -158,7 +170,9 @@ async def get_graph_image(
 @app.get("/stats/{server_id}")
 def get_server_stats(
     server_id: str,
-    period: int = Query(default=7, ge=1, le=365, description="Number of days for statistics"),
+    period: int = Query(
+        default=7, ge=1, le=365, description="Number of days for statistics"
+    ),
     db: Session = Depends(get_db),
 ):
     """Get statistics for a specific server"""

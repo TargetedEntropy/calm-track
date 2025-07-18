@@ -102,7 +102,9 @@ def save_results(db: Session, results):
 
         # Create player count entry
         player_count = PlayerCount(
-            server_id=result["server_id"], timestamp=timestamp, player_count=result["player_count"]
+            server_id=result["server_id"],
+            timestamp=timestamp,
+            player_count=result["player_count"],
         )
         db.add(player_count)
         db.flush()  # Get the ID

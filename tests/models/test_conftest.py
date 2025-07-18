@@ -1,6 +1,7 @@
 """
 Pytest configuration file for shared fixtures and test setup.
 """
+
 import sys
 from pathlib import Path
 
@@ -32,9 +33,9 @@ def db_session(engine):
     transaction = connection.begin()
     Session = sessionmaker(bind=connection)
     session = Session()
-    
+
     yield session
-    
+
     session.close()
     transaction.rollback()
     connection.close()
@@ -51,24 +52,19 @@ def session(db_session):
 def sample_servers():
     """Provide sample server data for testing"""
     return [
-        {
-            "id": "mce",
-            "name": "MC Eternal",
-            "ip": "calmingstorm.net",
-            "port": 25580
-        },
+        {"id": "mce", "name": "MC Eternal", "ip": "calmingstorm.net", "port": 25580},
         {
             "id": "gtnh",
             "name": "GregTech: New Horizons",
             "ip": "calmingstorm.net",
-            "port": 25567
+            "port": 25567,
         },
         {
             "id": "tnp",
             "name": "TNP Limitless 8",
             "ip": "calmingstorm.net",
-            "port": 25568
-        }
+            "port": 25568,
+        },
     ]
 
 
