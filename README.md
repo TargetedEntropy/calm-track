@@ -1,6 +1,6 @@
 # Minecraft Server Monitor
 ![Tests](https://github.com/TargetedEntropy/minecraft-server-monitor/workflows/Tests/badge.svg)
-[![codecov](https://codecov.io/gh/TargetedEntropy/minecraft-server-monitor/branch/main/graph/badge.svg)](https://codecov.io/gh/TargetedEntropy/minecraft-server-monitor)
+[![codecov](https://codecov.io/gh/TargetedEntropy/minecraft-server-monitor/branch/master/graph/badge.svg)](https://codecov.io/gh/TargetedEntropy/minecraft-server-monitor)
 
 A system to monitor player counts on multiple Minecraft servers and generate graphs.
 
