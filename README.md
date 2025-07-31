@@ -1,4 +1,5 @@
 # Minecraft Server Monitor
+
 ![Tests](https://github.com/TargetedEntropy/minecraft-server-monitor/workflows/Tests/badge.svg)
 [![codecov](https://codecov.io/gh/TargetedEntropy/minecraft-server-monitor/branch/master/graph/badge.svg)](https://codecov.io/gh/TargetedEntropy/minecraft-server-monitor)
 
@@ -34,7 +35,7 @@ crontab -e
 */15 * * * * cd /path/to/project && /usr/bin/python3 src/scraper.py >> /var/log/minecraft_scraper.log 2>&1
 ```
 
-5. Create your servers.json file.
+5. Create your servers.json file:
 ```json
 [
   {
@@ -64,8 +65,14 @@ uvicorn api:app --host 0.0.0.0 --port 8000 --reload
 
 - `GET /` - API root
 - `GET /servers` - List all monitored servers
-- `GET /graph/{server_id}?period={days}` - Generate player count graph
+- `GET /graph/{server_id}?period={days}` - Generate player count graph (HTML page)
+- `GET /graph/{server_id}/image?period={days}` - Get player count graph as PNG image
 - `GET /stats/{server_id}?period={days}` - Get server statistics
+
+### Parameters
+
+- `server_id` - The unique identifier for the server (from servers.json)
+- `period` - Number of days to display (1-365, default: 7)
 
 ## Directory Structure
 
@@ -76,6 +83,8 @@ minecraft-server-monitor/
 ├── servers.json
 ├── README.md
 ├── alembic.ini
+├── templates/
+│   └── graph.html
 ├── alembic/
 │   ├── env.py
 │   └── script.py.mako
